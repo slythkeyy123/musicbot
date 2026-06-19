@@ -1,3 +1,24 @@
+const { Client, GatewayIntentBits } = require('discord.js');
+const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
+
+const TOKEN = process.env.TOKEN;
+
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates
+    ]
+});
+
+client.once('ready', () => {
+    console.log(`${client.user.tag} Online!`);
+});
+
+client.on('messageCreate', msg => {
+
+    if (msg.author.bot) return;
 
     // !ping
     if (msg.content === '!ping') {
